@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EmployeeDetails.DataAccessAPI;
-using EmployeeDetails.Entities;
+using Entities.EmployeeEntities;
+using DataAccessLayer.DataAccessService;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Collections.Generic;
 
-namespace EmployeeDetails.BusinessModels
+namespace BusinessLayer
 {
-    class ButtonActionEvents
+    public class ButtonEvents
     {
         #region Object Call
-        RestApiConsume objSeriveCall = new RestApiConsume();
-
+        CallMethods objConsume = new CallMethods();
         #endregion
+
 
         #region Get All Employees Call Method
         public async Task<List<Employee>> GetAllDetails()
@@ -22,12 +20,12 @@ namespace EmployeeDetails.BusinessModels
 
             try
             {
-                lstAllEmp = await objSeriveCall.GetEmployeeDetails();
+                lstAllEmp = await objConsume.GetEmployeeDetails();
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
             return lstAllEmp;
@@ -42,12 +40,12 @@ namespace EmployeeDetails.BusinessModels
 
             try
             {
-                lstEmp = await objSeriveCall.GetEmployeeById(Id);
+                lstEmp = await objConsume.GetEmployeeById(Id);
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
             return lstEmp;
@@ -60,14 +58,19 @@ namespace EmployeeDetails.BusinessModels
         {
             try
             {
-                objSeriveCall.UpdateEmployee(emp);
+                objConsume.UpdateEmployee(emp);
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
         }
         #endregion
+
+        #region Delete method to call service
+
+        #endregion
+
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmployeeDetails.DataAccessAPI
+namespace DataAccessLayer.DataAccessService
 {
-    interface IConfigAPICredential
+    interface IConfigDetails
     {
         string IBaseAddress();
         string IAccessToken();

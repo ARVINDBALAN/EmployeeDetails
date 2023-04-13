@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using EmployeeDetails.BusinessModels;
-using EmployeeDetails.DataAccessAPI;
-using EmployeeDetails.Entities;
-
+using DataAccessLayer.DataAccessService;
+using BusinessLayer;
+using Entities;
 namespace EmployeeDetails
 {
     /// <summary>
@@ -25,13 +15,13 @@ namespace EmployeeDetails
     public partial class MainWindow : Window
     {
         #region Object Call
-        RestApiConsume objSeriveCall = new RestApiConsume();
-        ButtonActionEvents objBac = new ButtonActionEvents();
-        Common objCom = new Common();
+        CallMethods objSeriveCall = new CallMethods();
+        ButtonEvents objBac = new ButtonEvents();
+        Entities.EmployeeEntities.Employee objEmp = new Entities.EmployeeEntities.Employee();
         #endregion
 
         #region Variables declaration
-        int SearchId;
+        int searchId;
         string empDetails;
         #endregion
 
@@ -53,7 +43,7 @@ namespace EmployeeDetails
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
         }
 
@@ -98,7 +88,7 @@ namespace EmployeeDetails
                 }
 
                 // text obj call.
-                var emp = new Employee()
+                var emp = new Entities.EmployeeEntities.Employee()
 
                 {
                     //Id = Convert.ToInt32(txtEmpId.Text),
@@ -119,7 +109,7 @@ namespace EmployeeDetails
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
             
@@ -130,7 +120,7 @@ namespace EmployeeDetails
         #region Button Edit details
         protected void btnEdit(object sender, RoutedEventArgs e)
         {
-            Employee emp = ((FrameworkElement)sender).DataContext as Employee;
+            Entities.EmployeeEntities.Employee emp = ((FrameworkElement)sender).DataContext as Entities.EmployeeEntities.Employee;
 
             txtEmpId.Text = emp.Id.ToString();
             txtName.Text = emp.Name;
@@ -143,7 +133,7 @@ namespace EmployeeDetails
         #region Button onclick delete
         protected async void btnDeleteEmp(object sender, RoutedEventArgs e)
         {
-            Employee emp = ((FrameworkElement)sender).DataContext as Employee;
+            Entities.EmployeeEntities.Employee emp = ((FrameworkElement)sender).DataContext as Entities.EmployeeEntities.Employee;
 
             try
             {
@@ -164,7 +154,7 @@ namespace EmployeeDetails
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
         }
@@ -215,7 +205,7 @@ namespace EmployeeDetails
                     txtStatus.Focus();
                 }
 
-                var emp = new Employee()
+                var emp = new Entities.EmployeeEntities.Employee()
 
                 {
                     Id = Convert.ToInt32(txtEmpId.Text),
@@ -237,7 +227,7 @@ namespace EmployeeDetails
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
         }
@@ -255,16 +245,16 @@ namespace EmployeeDetails
                 }
                 else
                 {
-                    SearchId = Convert.ToInt32(txtEmpId.Text);
+                    searchId = Convert.ToInt32(txtEmpId.Text);
                 }
 
 
-                dgrdEmp.ItemsSource = await objBac.GetById(SearchId);
+                dgrdEmp.ItemsSource = await objBac.GetById(searchId);
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
 
             }
         }
