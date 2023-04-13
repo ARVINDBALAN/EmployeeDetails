@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using DataAccessLayer.DataAccessService;
 using BusinessLayer;
-using Entities;
+using Entities.EmployeeEntities;
 namespace EmployeeDetails
 {
     /// <summary>
@@ -15,9 +15,7 @@ namespace EmployeeDetails
     public partial class MainWindow : Window
     {
         #region Object Call
-        CallMethods objSeriveCall = new CallMethods();
         ButtonEvents objBac = new ButtonEvents();
-        Entities.EmployeeEntities.Employee objEmp = new Entities.EmployeeEntities.Employee();
         #endregion
 
         #region Variables declaration
@@ -67,14 +65,6 @@ namespace EmployeeDetails
                     txtMail.Focus();
                 }
 
-                //else if (!Regex.IsMatch(txtGender.Text
-                //    , @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
-                //{
-                //    MessageBox.Show("Please enter the valid Email");
-                //    txtMail.Select(0, txtMail.Text.Length);
-                //    txtEmpId.Focus();
-                //}
-
                 if (txtGender.Text.Length == 0)
                 {
                     MessageBox.Show("Please enter the Gender");
@@ -88,7 +78,7 @@ namespace EmployeeDetails
                 }
 
                 // text obj call.
-                var emp = new Entities.EmployeeEntities.Employee()
+                var emp = new Employee()
 
                 {
                     //Id = Convert.ToInt32(txtEmpId.Text),
@@ -98,7 +88,7 @@ namespace EmployeeDetails
                     Status = txtStatus.Text
                 };
 
-                objSeriveCall.SaveEmployee(emp);
+                objBac.SaveDetails(emp);
 
                 //txtEmpId.Text = "";
                 txtName.Text = "";
@@ -120,7 +110,7 @@ namespace EmployeeDetails
         #region Button Edit details
         protected void btnEdit(object sender, RoutedEventArgs e)
         {
-            Entities.EmployeeEntities.Employee emp = ((FrameworkElement)sender).DataContext as Entities.EmployeeEntities.Employee;
+            Employee emp = ((FrameworkElement)sender).DataContext as Employee;
 
             txtEmpId.Text = emp.Id.ToString();
             txtName.Text = emp.Name;
@@ -133,7 +123,7 @@ namespace EmployeeDetails
         #region Button onclick delete
         protected async void btnDeleteEmp(object sender, RoutedEventArgs e)
         {
-            Entities.EmployeeEntities.Employee emp = ((FrameworkElement)sender).DataContext as Entities.EmployeeEntities.Employee;
+            Employee emp = ((FrameworkElement)sender).DataContext as Employee;
 
             try
             {
@@ -145,7 +135,7 @@ namespace EmployeeDetails
                 else
                 {
                     empDetails = emp.Id.ToString();
-                    objSeriveCall.DelelteEmployee(emp.Id);
+                    objBac.DeleteDetails(emp.Id);
 
                 }
                 MessageBox.Show("Employee with ID " + empDetails + " has been deleted.", "Response Window.");
@@ -205,7 +195,7 @@ namespace EmployeeDetails
                     txtStatus.Focus();
                 }
 
-                var emp = new Entities.EmployeeEntities.Employee()
+                var emp = new Employee()
 
                 {
                     Id = Convert.ToInt32(txtEmpId.Text),

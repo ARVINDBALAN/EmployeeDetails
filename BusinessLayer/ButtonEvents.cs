@@ -53,6 +53,21 @@ namespace BusinessLayer
         }
         #endregion
 
+        #region Create save new record
+        public void SaveDetails(Employee emp)
+        {
+            try
+            {
+                objConsume.SaveEmployee(emp);
+            }
+
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+        #endregion
+
         #region Call Update Service EndPoint
         public void UpdateDetails(Employee emp)
         {
@@ -69,7 +84,18 @@ namespace BusinessLayer
         #endregion
 
         #region Delete method to call service
+        public void DeleteDetails(int id)
+        {
+            try
+            {
+                objConsume.DeleteEmployee(id);
+            }
 
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
         #endregion
 
     }
