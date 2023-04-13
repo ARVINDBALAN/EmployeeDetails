@@ -4,6 +4,7 @@ using System.Text;
 using EmployeeDetails.DataAccessAPI;
 using EmployeeDetails.Entities;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EmployeeDetails.BusinessModels
 {
@@ -26,7 +27,7 @@ namespace EmployeeDetails.BusinessModels
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return lstAllEmp;
@@ -46,7 +47,7 @@ namespace EmployeeDetails.BusinessModels
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return lstEmp;
@@ -64,7 +65,7 @@ namespace EmployeeDetails.BusinessModels
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

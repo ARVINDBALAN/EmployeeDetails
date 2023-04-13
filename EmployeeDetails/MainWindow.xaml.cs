@@ -53,7 +53,7 @@ namespace EmployeeDetails
             }
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -62,56 +62,67 @@ namespace EmployeeDetails
         #region Button Create Employee
         protected void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            if (txtName.Text.Length == 0)
+
+            try
             {
-                MessageBox.Show("Please enter the Employee Name");
-                txtName.Focus();
+                if (txtName.Text.Length == 0)
+                {
+                    MessageBox.Show("Please enter the Employee Name");
+                    txtName.Focus();
+                }
+
+                if (txtMail.Text.Length == 0)
+                {
+                    MessageBox.Show("Please enter the valid Email");
+                    txtMail.Focus();
+                }
+
+                //else if (!Regex.IsMatch(txtGender.Text
+                //    , @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+                //{
+                //    MessageBox.Show("Please enter the valid Email");
+                //    txtMail.Select(0, txtMail.Text.Length);
+                //    txtEmpId.Focus();
+                //}
+
+                if (txtGender.Text.Length == 0)
+                {
+                    MessageBox.Show("Please enter the Gender");
+
+                    txtGender.Focus();
+                }
+                if (txtStatus.Text.Length == 0)
+                {
+                    MessageBox.Show("Please enter the Status");
+                    txtStatus.Focus();
+                }
+
+                // text obj call.
+                var emp = new Employee()
+
+                {
+                    //Id = Convert.ToInt32(txtEmpId.Text),
+                    Name = txtName.Text,
+                    Email = txtMail.Text,
+                    Gender = txtGender.Text,
+                    Status = txtStatus.Text
+                };
+
+                objSeriveCall.SaveEmployee(emp);
+
+                //txtEmpId.Text = "";
+                txtName.Text = "";
+                txtMail.Text = "";
+                txtGender.Text = "";
+                txtStatus.Text = "";
             }
 
-            if (txtMail.Text.Length == 0)
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter the valid Email");
-                txtMail.Focus();
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            //else if (!Regex.IsMatch(txtGender.Text
-            //    , @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
-            //{
-            //    MessageBox.Show("Please enter the valid Email");
-            //    txtMail.Select(0, txtMail.Text.Length);
-            //    txtEmpId.Focus();
-            //}
-
-            if (txtGender.Text.Length == 0)
-            {
-                MessageBox.Show("Please enter the Gender");
-
-                txtGender.Focus();
-            }
-            if (txtStatus.Text.Length == 0)
-            {
-                MessageBox.Show("Please enter the Status");
-                txtStatus.Focus();
-            }
-
-            // text obj call.
-            var emp = new Employee()
-
-            {
-                //Id = Convert.ToInt32(txtEmpId.Text),
-                Name = txtName.Text,
-                Email = txtMail.Text,
-                Gender = txtGender.Text,
-                Status = txtStatus.Text
-            };
-
-            objSeriveCall.SaveEmployee(emp);
-
-            //txtEmpId.Text = "";
-            txtName.Text = "";
-            txtMail.Text = "";
-            txtGender.Text = "";
-            txtStatus.Text = "";
+            
         }
 
         #endregion
@@ -153,7 +164,7 @@ namespace EmployeeDetails
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -226,7 +237,7 @@ namespace EmployeeDetails
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -253,7 +264,8 @@ namespace EmployeeDetails
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
         #endregion
