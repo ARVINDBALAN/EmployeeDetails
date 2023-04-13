@@ -54,7 +54,8 @@ namespace EmployeeDetails.DataAccessAPI
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
         #endregion
@@ -74,7 +75,7 @@ namespace EmployeeDetails.DataAccessAPI
             }
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return lstEmp;
@@ -103,7 +104,8 @@ namespace EmployeeDetails.DataAccessAPI
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
 
             return lstEmp;
@@ -129,7 +131,7 @@ namespace EmployeeDetails.DataAccessAPI
 
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -147,7 +149,7 @@ namespace EmployeeDetails.DataAccessAPI
             }
             catch (Exception ex)
             {
-                throw (ex);
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
@@ -163,12 +165,10 @@ namespace EmployeeDetails.DataAccessAPI
 
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
         #endregion
-
-
     }
 }

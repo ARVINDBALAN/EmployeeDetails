@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace EmployeeDetails.DataAccessAPI
 {
@@ -19,15 +20,33 @@ namespace EmployeeDetails.DataAccessAPI
         #region Access Token
         public string IAccessToken()
         {
-            strAddress = objcom.GetFilePath("accesstoken").ToString();
+            try
+            {
+                strAddress = objcom.GetFilePath("accesstoken").ToString();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
             return strAddress;
+
         }
         #endregion
 
         #region Base address
         public string IBaseAddress()
         {
-            strAddress = objcom.GetFilePath("BaseAddress").ToString();
+            try
+            {
+                strAddress = objcom.GetFilePath("BaseAddress").ToString();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             return strAddress;
         }
         #endregion
@@ -35,7 +54,15 @@ namespace EmployeeDetails.DataAccessAPI
         #region End Point
         public string IEndPoints()
         {
-            strAddress = objcom.GetFilePath("endpoints").ToString();
+            try
+            {
+                strAddress = objcom.GetFilePath("endpoints").ToString();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             return strAddress;
         }
         #endregion

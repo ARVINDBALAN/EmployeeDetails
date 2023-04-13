@@ -7,6 +7,7 @@ namespace EmployeeDetails
 {
     class Common : IDisposable
     {
+        #region Get details from XML file
         public string GetFilePath(string sFilePath)
         {
             string folderPath = "";
@@ -14,7 +15,7 @@ namespace EmployeeDetails
             {
                 XmlDocument oXML = new XmlDocument();
                 XmlNode oNode;
-                oXML.Load("..\\..\\Setting.xml");
+                oXML.Load("..\\..\\Settings.xml");
                 oNode = oXML.SelectSingleNode("//ApiBasicCredential/" + sFilePath);
                 if (oNode != null)
                     folderPath = oNode.InnerXml;
@@ -25,18 +26,13 @@ namespace EmployeeDetails
             }
             return folderPath;
         }
+        #endregion
 
-
+        #region Dispose the data
         public void Dispose()
         {
             GC.SuppressFinalize(this);
         }
-
-        public string RegexEmailCheck()
-        {
-            string pattern = @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$";
-
-            return pattern;
-        }
+        #endregion
     }
 }
