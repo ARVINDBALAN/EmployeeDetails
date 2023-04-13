@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EmployeeDetails;
-using EmployeeDetails.DataAccessAPI;
+using DataAccessLayer;
+using CommonLayer;
 using System.Net.Http;
 using System;
 using System.Net.Http.Headers;
@@ -15,7 +16,7 @@ namespace UnitTestProject
         [TestMethod]
         public void ApiServiceTest()
         {
-            Common obj = new Common();
+           CommonLayer.Common obj = new CommonLayer.Common();
 
             string accesskey = obj.GetFilePath("endpoints");
 
@@ -27,7 +28,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestApiServiceClass()
         {
-            GetApiConfigDetails objApiCall = new GetApiConfigDetails();
+            DataAccessLayer.DataAccessService.BasicDetailsService objApiCall = new DataAccessLayer.DataAccessService.BasicDetailsService();
 
             string baseaddress = objApiCall.IBaseAddress();
 

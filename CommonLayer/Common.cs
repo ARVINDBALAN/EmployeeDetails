@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace EmployeeDetails
+namespace CommonLayer
 {
-    class Common : IDisposable
+    public class Common : IDisposable
     {
         #region Get details from XML file
         public string GetFilePath(string sFilePath)
@@ -15,7 +15,7 @@ namespace EmployeeDetails
             {
                 XmlDocument oXML = new XmlDocument();
                 XmlNode oNode;
-                oXML.Load("..\\..\\Settings.xml");
+                oXML.Load("..\\..\\..\\Settings.xml");
                 oNode = oXML.SelectSingleNode("//ApiBasicCredential/" + sFilePath);
                 if (oNode != null)
                     folderPath = oNode.InnerXml;

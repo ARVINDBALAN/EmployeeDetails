@@ -2,43 +2,35 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using EmployeeDetails.Entities;
-using EmployeeDetails.DataAccessAPI;
+using Entities;
 using System.Threading.Tasks;
+using Entities.EmployeeEntities;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using System.Data;
-using Newtonsoft.Json.Linq;
-using System.Net;
-using System.IO;
-using System.Windows;
 
-namespace EmployeeDetails.DataAccessAPI
+namespace DataAccessLayer.DataAccessService
 {
-    class RestApiConsume
+    public class CallMethods
     {
         #region Decalre Objects
         HttpClient postclient = new HttpClient();
-        Employee emp = new Employee();
-        Common objcom = new Common();
-        GetApiConfigDetails objApiSerCall = new GetApiConfigDetails();
+        Entities.EmployeeEntities.Employee emp = new Entities.EmployeeEntities.Employee();
+        BasicDetailsService ObjBServiceDetails = new BasicDetailsService();
         #endregion
 
         #region Decalre variables
-        string strAccesstoken = string.Empty;
-        string strBaseaddress = string.Empty;
-        string strEndpoints = string.Empty;
+        string Accesstoken = string.Empty;
+        string Baseaddress = string.Empty;
+        string Endpoints = string.Empty;
         #endregion
 
         #region Constructor
-        public RestApiConsume()
+        public CallMethods()
         {
             InitiateValue();
-            postclient.BaseAddress = new Uri(strBaseaddress);
+            postclient.BaseAddress = new Uri(Baseaddress);
             postclient.DefaultRequestHeaders.Accept.Clear();
             postclient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            postclient.DefaultRequestHeaders.Add("Authorization", "Bearer " + strAccesstoken);
+            postclient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Accesstoken);
         }
         #endregion
 
@@ -47,15 +39,14 @@ namespace EmployeeDetails.DataAccessAPI
         {
             try
             {
-                strBaseaddress = objApiSerCall.IBaseAddress();
-                strAccesstoken = objApiSerCall.IAccessToken();
-                strEndpoints = objApiSerCall.IEndPoints();
+                Baseaddress = ObjBServiceDetails.IBaseAddress();
+                Accesstoken = ObjBServiceDetails.IAccessToken();
+                Endpoints = ObjBServiceDetails.IEndPoints();
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                throw (ex);
             }
         }
         #endregion
@@ -67,7 +58,7 @@ namespace EmployeeDetails.DataAccessAPI
 
             try
             {
-                var response = await postclient.GetStringAsync(strEndpoints);
+                var response = await postclient.GetStringAsync(Endpoints);
                 var employee = JsonConvert.DeserializeObject<List<Employee>>(response);
 
                 lstEmp = employee;
@@ -75,7 +66,7 @@ namespace EmployeeDetails.DataAccessAPI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
             return lstEmp;
@@ -89,7 +80,7 @@ namespace EmployeeDetails.DataAccessAPI
             Employee emp = new Employee();
             try
             {
-                var response = await postclient.GetAsync(strEndpoints + "" + Id);
+                var response = await postclient.GetAsync(Endpoints + "" + Id);
                 var result = await response.Content.ReadAsStringAsync();
 
                 var results = JsonConvert.DeserializeObject<Employee>(result);
@@ -104,8 +95,7 @@ namespace EmployeeDetails.DataAccessAPI
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                throw (ex);    
             }
 
             return lstEmp;
@@ -121,7 +111,7 @@ namespace EmployeeDetails.DataAccessAPI
             {
                 var json = JsonConvert.SerializeObject(emp);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await postclient.PostAsJsonAsync(strEndpoints, content);
+                var response = await postclient.PostAsJsonAsync(Endpoints, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -131,7 +121,7 @@ namespace EmployeeDetails.DataAccessAPI
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
         }
@@ -144,12 +134,12 @@ namespace EmployeeDetails.DataAccessAPI
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(emp), Encoding.UTF8, "application/json");
-                await postclient.PutAsJsonAsync(strEndpoints + "" + emp.Id, content);
+                await postclient.PutAsJsonAsync(Endpoints + "" + emp.Id, content);
                 //var responsecontent = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
         }
         #endregion
@@ -159,16 +149,17 @@ namespace EmployeeDetails.DataAccessAPI
         {
             try
             {
-                await postclient.DeleteAsync(strEndpoints + EmpID);
+                await postclient.DeleteAsync(Endpoints + EmpID);
 
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("An unhandled exception just occurred: " + ex.InnerException.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw (ex);
             }
 
         }
         #endregion
+
     }
 }
