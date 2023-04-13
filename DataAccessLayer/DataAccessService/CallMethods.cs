@@ -145,7 +145,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region HttpDelete Delete the Existing records
-        public async void DelelteEmployee(int EmpID)
+        public async void DeleteEmployee(int EmpID)
         {
             try
             {
