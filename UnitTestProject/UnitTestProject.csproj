@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-    <ProjectReference Include="..\EmployeeDetails\EmployeeDetails.csproj" />
+    <ProjectReference Include="..\EmployeeDetails\EmployeeDetailsUI.csproj" />
   </ItemGroup>
 
 </Project>
