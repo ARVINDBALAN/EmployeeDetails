@@ -52,7 +52,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region Get all the Employees
-        public async Task<List<Employee>> GetEmployeeDetails()
+        public async Task<List<Employee>> GetAllDetails()
         {
             List<Employee> lstEmp = new List<Employee>();
 
@@ -74,7 +74,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region Get one record by Id
-        public async Task<List<Employee>> GetEmployeeById(int Id)
+        public async Task<List<Employee>> GetRecordById(int Id)
         {
             List<Employee> lstEmp = new List<Employee>();
             Employee emp = new Employee();
@@ -104,7 +104,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region HttpPost post new records in End Point
-        public async void SaveEmployee(Employee emp)
+        public async void PostDetails(Employee emp)
         {
 
             try
@@ -129,7 +129,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region HttpPut Update the existing Details
-        public async void UpdateEmployee(Employee emp)
+        public async void UpdateRecords(Employee emp)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region HttpDelete Delete the Existing records
-        public async void DeleteEmployee(int EmpID)
+        public async void DeleteById(int EmpID)
         {
             try
             {

@@ -20,7 +20,7 @@ namespace BusinessLayer
 
             try
             {
-                lstAllEmp = await objConsume.GetEmployeeDetails();
+                lstAllEmp = await objConsume.GetAllDetails();
             }
 
             catch (Exception ex)
@@ -40,7 +40,7 @@ namespace BusinessLayer
 
             try
             {
-                lstEmp = await objConsume.GetEmployeeById(Id);
+                lstEmp = await objConsume.GetRecordById(Id);
             }
 
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace BusinessLayer
         {
             try
             {
-                objConsume.SaveEmployee(emp);
+                objConsume.PostDetails(emp);
             }
 
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace BusinessLayer
         {
             try
             {
-                objConsume.UpdateEmployee(emp);
+                objConsume.UpdateRecords(emp);
             }
 
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace BusinessLayer
         {
             try
             {
-                objConsume.DeleteEmployee(id);
+                objConsume.DeleteById(id);
             }
 
             catch (Exception ex)
