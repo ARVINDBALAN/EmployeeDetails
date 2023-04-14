@@ -5,7 +5,7 @@ using CommonLayer;
 
 namespace DataAccessLayer.DataAccessService
 {
-   public class BasicDetailsService : IConfigDetails
+   public class BasicDetailsService : Common , IConfigDetails
     {
         #region Object call
         Common objcom = new Common();
