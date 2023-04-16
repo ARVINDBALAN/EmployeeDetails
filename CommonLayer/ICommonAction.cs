@@ -4,9 +4,17 @@ using System.Text;
 
 namespace CommonLayer
 {
-    interface ICommonAction
+   public interface ICommonAction
     {
         //interface method to get the file path
-        string IGetFilePath(string filepath);
+        string IBaseAddress();
+        string IAccessToken();
+        string IEndPoints();
     }
+
+    public interface ICommonMethods
+    {
+        string Getpath();
+    }
+
 }
