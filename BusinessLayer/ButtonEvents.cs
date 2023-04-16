@@ -82,7 +82,7 @@ namespace BusinessLayer
             }
         }
         #endregion
-
+            
         #region Delete method to call service
         public void DeleteDetails(int id)
         {

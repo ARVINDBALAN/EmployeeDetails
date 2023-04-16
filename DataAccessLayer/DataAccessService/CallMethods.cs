@@ -5,6 +5,7 @@ using System.Text;
 using Entities;
 using System.Threading.Tasks;
 using Entities.EmployeeEntities;
+using CommonLayer;
 using Newtonsoft.Json;
 
 namespace DataAccessLayer.DataAccessService
@@ -13,24 +14,24 @@ namespace DataAccessLayer.DataAccessService
     {
         #region Decalre Objects
         HttpClient postclient = new HttpClient();
-        Entities.EmployeeEntities.Employee emp = new Entities.EmployeeEntities.Employee();
+        //Employee objEmp = new Employee();
         BasicDetailsService ObjBServiceDetails = new BasicDetailsService();
         #endregion
 
         #region Decalre variables
-        string Accesstoken = string.Empty;
-        string Baseaddress = string.Empty;
-        string Endpoints = string.Empty;
+        string accessToken = string.Empty;
+        string baseAddress = string.Empty;
+        string endPoints = string.Empty;
         #endregion
 
         #region Constructor
         public CallMethods()
         {
             InitiateValue();
-            postclient.BaseAddress = new Uri(Baseaddress);
+            postclient.BaseAddress = new Uri(baseAddress);
             postclient.DefaultRequestHeaders.Accept.Clear();
             postclient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            postclient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Accesstoken);
+            postclient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
         }
         #endregion
 
@@ -39,9 +40,9 @@ namespace DataAccessLayer.DataAccessService
         {
             try
             {
-                Baseaddress = ObjBServiceDetails.IBaseAddress();
-                Accesstoken = ObjBServiceDetails.IAccessToken();
-                Endpoints = ObjBServiceDetails.IEndPoints();
+                baseAddress = ObjBServiceDetails.IBaseAddress();
+                accessToken = ObjBServiceDetails.IAccessToken();
+                endPoints = ObjBServiceDetails.IEndPoints();
             }
 
             catch (Exception ex)
@@ -58,7 +59,7 @@ namespace DataAccessLayer.DataAccessService
 
             try
             {
-                var response = await postclient.GetStringAsync(Endpoints);
+                var response = await postclient.GetStringAsync(endPoints);
                 var employee = JsonConvert.DeserializeObject<List<Employee>>(response);
 
                 lstEmp = employee;
@@ -80,7 +81,7 @@ namespace DataAccessLayer.DataAccessService
             Employee emp = new Employee();
             try
             {
-                var response = await postclient.GetAsync(Endpoints + "" + Id);
+                var response = await postclient.GetAsync(endPoints + "" + Id);
                 var result = await response.Content.ReadAsStringAsync();
 
                 var results = JsonConvert.DeserializeObject<Employee>(result);
@@ -111,7 +112,7 @@ namespace DataAccessLayer.DataAccessService
             {
                 var json = JsonConvert.SerializeObject(emp);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await postclient.PostAsJsonAsync(Endpoints, content);
+                var response = await postclient.PostAsJsonAsync(endPoints, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -134,7 +135,7 @@ namespace DataAccessLayer.DataAccessService
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(emp), Encoding.UTF8, "application/json");
-                await postclient.PutAsJsonAsync(Endpoints + "" + emp.Id, content);
+                await postclient.PutAsJsonAsync(endPoints + "" + emp.Id, content);
                 //var responsecontent = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
@@ -149,7 +150,7 @@ namespace DataAccessLayer.DataAccessService
         {
             try
             {
-                await postclient.DeleteAsync(Endpoints + EmpID);
+                await postclient.DeleteAsync(endPoints + EmpID);
 
             }
 

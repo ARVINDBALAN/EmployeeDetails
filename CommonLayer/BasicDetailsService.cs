@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CommonLayer;
 
-namespace DataAccessLayer.DataAccessService
+namespace CommonLayer
 {
-   public class BasicDetailsService : Common , IConfigDetails
+    public class BasicDetailsService
     {
         #region Object call
         Common objcom = new Common();
         #endregion
 
         #region Variable Declaration
-        string BaseAddress = string.Empty;
-        string AccessToken = string.Empty;
-        string EndPoint = string.Empty;
+        string baseAddress = string.Empty;
+        string accessToken = string.Empty;
+        string endPoint = string.Empty;
         #endregion
 
         #region Access Token
-       public string IAccessToken()
+        public string IAccessToken()
         {
             try
             {
-                AccessToken = objcom.GetFilePath("accesstoken").ToString();
+                accessToken = objcom.GetFilePath("accesstoken").ToString();
             }
 
             catch (Exception ex)
@@ -30,7 +29,7 @@ namespace DataAccessLayer.DataAccessService
                 throw (ex);
 
             }
-            return AccessToken;
+            return accessToken;
         }
         #endregion
 
@@ -39,14 +38,14 @@ namespace DataAccessLayer.DataAccessService
         {
             try
             {
-                BaseAddress = objcom.GetFilePath("BaseAddress").ToString();
+                baseAddress = objcom.GetFilePath("BaseAddress").ToString();
             }
 
             catch (Exception ex)
             {
                 throw (ex);
             }
-            return BaseAddress;
+            return baseAddress;
         }
         #endregion
 
@@ -55,15 +54,16 @@ namespace DataAccessLayer.DataAccessService
         {
             try
             {
-                EndPoint = objcom.GetFilePath("endpoints").ToString();
+                endPoint = objcom.GetFilePath("endpoints").ToString();
             }
 
             catch (Exception ex)
             {
                 throw (ex);
             }
-            return EndPoint;
+            return endPoint;
         }
         #endregion
     }
+
 }

@@ -28,7 +28,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestApiServiceClass()
         {
-            DataAccessLayer.DataAccessService.BasicDetailsService objApiCall = new DataAccessLayer.DataAccessService.BasicDetailsService();
+            BasicDetailsService objApiCall = new BasicDetailsService();
 
             string baseaddress = objApiCall.IBaseAddress();
 
