@@ -11,3 +11,4 @@ To access the Api credentails separate Common class has function to get those de
 MSUnit test has also added in the application. 
 Some of the unit test like api response and methods are getting the values properly or not in application.
 Apart from this validation has added in button click Events.
+For more and detail description please check the document upload in name : Case Study document for WPF application.
