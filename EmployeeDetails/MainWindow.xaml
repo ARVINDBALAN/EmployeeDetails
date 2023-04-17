@@ -25,11 +25,11 @@
         <TextBox x:Name="textMail" HorizontalAlignment="Left" Margin="120,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.ColumnSpan="2" BorderBrush="#FF03050A" Height="21"/>
 
         <Label x:Name="lblGdr" Content="Gender" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="101" Background="#FF30879B" FontWeight="Bold" Height="24"/>
-        <TextBox x:Name="textGender" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="120,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" BorderBrush="#FF03050A" Height="21"/>
+        <!--<TextBox x:Name="textGender" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="120,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" BorderBrush="#FF03050A" Height="21"/>-->
 
 
         <Label x:Name="lblStatus" Content="Status" HorizontalAlignment="Left" Margin="8,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.316,1.849" Width="102" Background="#FF30879B" FontWeight="Bold" />
-        <TextBox x:Name="textStatus" HorizontalAlignment="Left" Margin="121,0,0,0"  TextWrapping="Wrap" VerticalAlignment="Center" Width="98" Grid.ColumnSpan="2" Height="24" BorderBrush="#FF03050A" RenderTransformOrigin="0.51,0.05"/>
+        <!--<TextBox x:Name="textStatus" HorizontalAlignment="Left" Margin="121,0,0,0"  TextWrapping="Wrap" VerticalAlignment="Center" Width="98" Grid.ColumnSpan="2" Height="24" BorderBrush="#FF03050A" RenderTransformOrigin="0.51,0.05"/>-->
 
         <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="65,270,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="3.36,0.115" Height="27" Grid.ColumnSpan="2" Click="btnCreate_Click" BorderBrush="#FF0F0202" Background="#FF21BFBF" FontWeight="Bold" FontSize="14"/>
         <DataGrid x:Name="dgrdEmp" Grid.Column="1" Margin="125,89,34,92" Foreground="#FF130202" FontWeight="Bold" BorderBrush="#FF1E7BD4" x:FieldModifier="public">
@@ -56,6 +56,13 @@
         <Button x:Name="btnExport" Content="Export to CSV" Grid.Column="1" HorizontalAlignment="Left" Margin="262,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.488,-0.213" Width="93" Click="btnExport_Click" FontWeight="Bold" BorderBrush="#FF150202" Background="#FF2DBB8E" Height="22"/>
         <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="67,321,0,0" VerticalAlignment="Top" Width="95" Grid.ColumnSpan="2" Height="25" BorderBrush="#FF010C0C" Background="#FF21BFBF" FontWeight="Bold" FontSize="14" Click="btnUpdate_Click"/>
         <Button x:Name="btnSearch" Content="SearchById" HorizontalAlignment="Left" Margin="66,368,0,0" VerticalAlignment="Top" Width="94" Grid.ColumnSpan="2" Background="#FF21BFBF" FontSize="14" FontWeight="Bold" BorderBrush="#FF110A0A" Click="btnSearch_Click"/>
+        <ComboBox x:Name="comboBoxGender"  
+                  HorizontalAlignment="Left" Margin="123,161,0,0" 
+                  VerticalAlignment="Top" Width="95" Grid.ColumnSpan="2" 
+                  ItemsSource="{Binding Gender}"/>
+        <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" 
+                  Margin="124,0,0,0" VerticalAlignment="Center" 
+                  Width="96" Grid.ColumnSpan="2" ItemsSource="{Binding EmployeeStatus}" />
         <!--<Label x:Name="lblMessage" Content="Message" HorizontalAlignment="Left" Margin="79,384,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.212,0.501" Grid.ColumnSpan="2" Width="108"/>-->
 
     </Grid>

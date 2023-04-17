@@ -14,6 +14,7 @@ namespace DataAccessLayer.DataAccessService
         #region Decalre Objects
         HttpClient postclient = new HttpClient();
         BasicDetailsService ObjBServiceDetails = new BasicDetailsService();
+        public ICommonAction commonAction;
         #endregion
 
         #region Decalre variables
@@ -32,6 +33,8 @@ namespace DataAccessLayer.DataAccessService
             postclient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
         }
         #endregion
+
+
 
         #region Initiate values for endpoint
         public void InitiateValue()
