@@ -7,6 +7,7 @@ using System.Windows.Input;
 using BusinessLayer;
 using Entities.EmployeeEntities;
 using DataAccessLayer.DataAccessService;
+using CommonLayer;
 
 namespace EmployeeDetails
 {
@@ -27,7 +28,9 @@ namespace EmployeeDetails
         public MainWindow()
         {
             InitializeComponent();
+            InitiateComboBoxValues();
             btnCreate.Visibility = Visibility.Hidden;
+            btnUpdate.Visibility = Visibility.Hidden;
         }
 
 
@@ -63,17 +66,17 @@ namespace EmployeeDetails
                     //Id = Convert.ToInt32(txtEmpId.Text),
                     Name = textName.Text,
                     Email = textMail.Text,
-                    Gender = textGender.Text,
-                    Status = textStatus.Text
+                    Gender = comboBoxGender.SelectedValue.ToString(),
+                    Status = comboBoxStatus.SelectedValue.ToString()
                 };
 
                 objBevent.SaveDetails(emp);
 
-                //txtEmpId.Text = "";
+                textEmpId.Text = "";
                 textName.Text = "";
                 textMail.Text = "";
-                textGender.Text = "";
-                textStatus.Text = "";
+                comboBoxGender.SelectedValue = "";
+                comboBoxStatus.SelectedValue = "";
             }
 
             catch (Exception ex)
@@ -94,8 +97,8 @@ namespace EmployeeDetails
             textEmpId.Text = emp.Id.ToString();
             textName.Text = emp.Name;
             textMail.Text = emp.Email;
-            textGender.Text = emp.Gender;
-            textStatus.Text = emp.Status;
+            comboBoxGender.SelectedValue = emp.Gender;
+            comboBoxStatus.SelectedValue = emp.Status;
         }
         #endregion
 
@@ -106,7 +109,7 @@ namespace EmployeeDetails
 
             try
             {
-                if (emp.Id.ToString() == null || emp.Id.ToString() == "")
+                if (emp.Id.ToString() == null || emp.Id.ToString() == "" || emp.Id == 0)
                 {
                     MessageBox.Show("Please Select Emlpoyee to delete the Request");
                 }
@@ -115,9 +118,9 @@ namespace EmployeeDetails
                 {
                     empDetails = emp.Id.ToString();
                     objBevent.DeleteDetails(emp.Id);
-
+                    MessageBox.Show("Employee with ID " + empDetails + " has been deleted.", "Response Window.");
                 }
-                MessageBox.Show("Employee with ID " + empDetails + " has been deleted.", "Response Window.");
+               
                 dgrdEmp.ItemsSource = await objBevent.SelectAllDetails();
             }
 
@@ -146,8 +149,6 @@ namespace EmployeeDetails
         #region Buttton onclick Update
         protected void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            textEmpId.IsEnabled = false;
-
             try
             {
                 ValidateTextValues();
@@ -158,8 +159,8 @@ namespace EmployeeDetails
                     Id = Convert.ToInt32(textEmpId.Text),
                     Name = textName.Text,
                     Email = textMail.Text,
-                    Gender = textGender.Text,
-                    Status = textStatus.Text
+                    Gender = comboBoxGender.SelectedValue.ToString(),
+                    Status = comboBoxStatus.SelectedValue.ToString()
                 };
 
                 objBevent.UpdateDetails(emp);
@@ -167,8 +168,8 @@ namespace EmployeeDetails
                 textEmpId.Text = "";
                 textName.Text = "";
                 textMail.Text = "";
-                textGender.Text = "";
-                textStatus.Text = "";
+                comboBoxGender.SelectedValue = "";
+                comboBoxStatus.SelectedValue = "";
             }
 
             catch (Exception ex)
@@ -221,17 +222,24 @@ namespace EmployeeDetails
                 textMail.Focus();
             }
 
-            if (textGender.Text.Length == 0)
+            if (comboBoxGender.SelectedValue.ToString() == "")
             {
                 MessageBox.Show("Please enter the Gender");
 
-                textGender.Focus();
+                comboBoxGender.Focus();
             }
-            if (textStatus.Text.Length == 0)
+            if (comboBoxStatus.SelectedValue.ToString() == "")
             {
                 MessageBox.Show("Please enter the Status");
-                textStatus.Focus();
+                comboBoxStatus.Focus();
             }
+        }
+        #endregion
+
+        #region Initiate the Combox values at load event
+        public void InitiateComboBoxValues()
+        {
+            DataContext = new ComboBoxvalues();
         }
         #endregion
     }
