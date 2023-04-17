@@ -135,7 +135,7 @@ namespace DataAccessLayer.DataAccessService
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(emp), Encoding.UTF8, "application/json");
-                await postclient.PutAsJsonAsync(endPoints + "" + emp.Id, content);
+                var response = await postclient.PutAsJsonAsync(endPoints + "" + emp.Id, content);
                 //var responsecontent = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
