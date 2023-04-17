@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CommonLayer
 {
-    public class BasicDetailsService
+    public class BasicDetailsService : ICommonAction
     {
         #region Object call
         Common objcom = new Common();

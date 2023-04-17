@@ -1,26 +1,33 @@
 ﻿using System;
-using Entities.EmployeeEntities;
-using DataAccessLayer.DataAccessService;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using CommonLayer;
+using Entities.EmployeeEntities;
 
 namespace BusinessLayer
 {
     public class ButtonEvents
     {
-        #region Object Call
-        CallMethods objConsume = new CallMethods();
+        //Dependency Object call using Interface
+
+        public ICallMethods callMethods;
+
+        #region Constructor Dependency call
+        public ButtonEvents(ICallMethods callmethod)
+        {
+            this.callMethods = callmethod;
+        }
         #endregion
 
-
         #region Get All Employees Call Method
-        public async Task<List<Employee>> GetAllDetails()
+        public async Task<List<Employee>> SelectAllDetails()
         {
             List<Employee> lstAllEmp = new List<Employee>();
 
             try
             {
-                lstAllEmp = await objConsume.GetAllDetails();
+                lstAllEmp = await this.callMethods.GetAllDetails();
             }
 
             catch (Exception ex)
@@ -40,7 +47,7 @@ namespace BusinessLayer
 
             try
             {
-                lstEmp = await objConsume.GetRecordById(Id);
+                lstEmp = await this.callMethods.GetOneRecordByID(Id);
             }
 
             catch (Exception ex)
@@ -58,7 +65,7 @@ namespace BusinessLayer
         {
             try
             {
-                objConsume.PostDetails(emp);
+                callMethods.InsertNewDetail(emp);
             }
 
             catch (Exception ex)
@@ -73,7 +80,7 @@ namespace BusinessLayer
         {
             try
             {
-                objConsume.UpdateRecords(emp);
+                callMethods.UpdateExistingRecord(emp);
             }
 
             catch (Exception ex)
@@ -82,13 +89,13 @@ namespace BusinessLayer
             }
         }
         #endregion
-            
+
         #region Delete method to call service
         public void DeleteDetails(int id)
         {
             try
             {
-                objConsume.DeleteById(id);
+                callMethods.DeleteExistingRecord(id);
             }
 
             catch (Exception ex)
@@ -97,6 +104,5 @@ namespace BusinessLayer
             }
         }
         #endregion
-
     }
 }

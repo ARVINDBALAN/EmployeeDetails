@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Settings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

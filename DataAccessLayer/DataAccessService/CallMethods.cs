@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using Entities;
 using System.Threading.Tasks;
-using Entities.EmployeeEntities;
 using CommonLayer;
+using Entities.EmployeeEntities;
 using Newtonsoft.Json;
 
 namespace DataAccessLayer.DataAccessService
 {
-    public class CallMethods
+    public class CallMethods : ICallMethods
     {
         #region Decalre Objects
         HttpClient postclient = new HttpClient();
-        //Employee objEmp = new Employee();
         BasicDetailsService ObjBServiceDetails = new BasicDetailsService();
         #endregion
 
@@ -75,7 +73,7 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region Get one record by Id
-        public async Task<List<Employee>> GetRecordById(int Id)
+        public async Task<List<Employee>> GetOneRecordByID(int Id)
         {
             List<Employee> lstEmp = new List<Employee>();
             Employee emp = new Employee();
@@ -96,16 +94,16 @@ namespace DataAccessLayer.DataAccessService
 
             catch (Exception ex)
             {
-                throw (ex);    
+                throw (ex);
             }
 
             return lstEmp;
-
         }
         #endregion
 
+
         #region HttpPost post new records in End Point
-        public async void PostDetails(Employee emp)
+        public async void InsertNewDetail(Employee emp)
         {
 
             try
@@ -126,16 +124,15 @@ namespace DataAccessLayer.DataAccessService
             }
 
         }
-
         #endregion
 
         #region HttpPut Update the existing Details
-        public async void UpdateRecords(Employee emp)
+        public async void UpdateExistingRecord(Employee emp)
         {
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(emp), Encoding.UTF8, "application/json");
-                var response = await postclient.PutAsJsonAsync(endPoints + "" + emp.Id, content);
+                await postclient.PutAsJsonAsync(endPoints + "" + emp.Id, content);
                 //var responsecontent = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
@@ -146,11 +143,11 @@ namespace DataAccessLayer.DataAccessService
         #endregion
 
         #region HttpDelete Delete the Existing records
-        public async void DeleteById(int EmpID)
+        public async void DeleteExistingRecord(int empId)
         {
             try
             {
-                await postclient.DeleteAsync(endPoints + EmpID);
+                await postclient.DeleteAsync(endPoints + empId);
 
             }
 

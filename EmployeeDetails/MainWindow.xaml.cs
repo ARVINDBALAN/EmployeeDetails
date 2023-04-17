@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using BusinessLayer;
 using Entities.EmployeeEntities;
+using DataAccessLayer.DataAccessService;
 
 namespace EmployeeDetails
 {
@@ -15,7 +16,7 @@ namespace EmployeeDetails
     public partial class MainWindow : Window
     {
         #region Object Call
-        ButtonEvents objBac = new ButtonEvents();
+        ButtonEvents objBevent = new ButtonEvents(new CallMethods());
         #endregion
 
         #region Variables declaration
@@ -36,7 +37,7 @@ namespace EmployeeDetails
             try
             {
 
-                dgrdEmp.ItemsSource = await objBac.GetAllDetails();
+                dgrdEmp.ItemsSource = await objBevent.SelectAllDetails();
 
             }
             catch (Exception ex)
@@ -66,7 +67,7 @@ namespace EmployeeDetails
                     Status = textStatus.Text
                 };
 
-                objBac.SaveDetails(emp);
+                objBevent.SaveDetails(emp);
 
                 //txtEmpId.Text = "";
                 textName.Text = "";
@@ -80,7 +81,7 @@ namespace EmployeeDetails
                 throw (ex);
             }
 
-            
+
         }
 
         #endregion
@@ -113,11 +114,11 @@ namespace EmployeeDetails
                 else
                 {
                     empDetails = emp.Id.ToString();
-                    objBac.DeleteDetails(emp.Id);
+                    objBevent.DeleteDetails(emp.Id);
 
                 }
                 MessageBox.Show("Employee with ID " + empDetails + " has been deleted.", "Response Window.");
-                dgrdEmp.ItemsSource = await objBac.GetAllDetails();
+                dgrdEmp.ItemsSource = await objBevent.SelectAllDetails();
             }
 
             catch (Exception ex)
@@ -161,7 +162,7 @@ namespace EmployeeDetails
                     Status = textStatus.Text
                 };
 
-                objBac.UpdateDetails(emp);
+                objBevent.UpdateDetails(emp);
 
                 textEmpId.Text = "";
                 textName.Text = "";
@@ -194,7 +195,7 @@ namespace EmployeeDetails
                 }
 
 
-                dgrdEmp.ItemsSource = await objBac.GetById(searchId);
+                dgrdEmp.ItemsSource = await objBevent.GetById(searchId);
             }
 
             catch (Exception ex)
